@@ -1,0 +1,4 @@
+experiments/**/*.jsonl filter=lfs diff=lfs merge=lfs -text
+experiments/**/*.bin filter=lfs diff=lfs merge=lfs -text
+experiments/**/*.pt filter=lfs diff=lfs merge=lfs -text
+experiments/spectral_band_v20/runs/ogbn-products_vicuna7b_v15_16k/01_hard_split/text_only_products_test.jsonl.split.json filter=lfs diff=lfs merge=lfs -text
