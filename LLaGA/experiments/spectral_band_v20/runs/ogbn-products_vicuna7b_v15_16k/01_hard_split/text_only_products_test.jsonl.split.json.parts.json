@@ -1,0 +1,13 @@
+{
+  "original_file": "LLaGA/experiments/spectral_band_v20/runs/ogbn-products_vicuna7b_v15_16k/01_hard_split/text_only_products_test.jsonl.split.json",
+  "original_size_bytes": 1992287858,
+  "original_sha256": "0f316dffb9f6a1b67eadff4f02b76724b016d58f0518a65c8876fea739ce3bb3",
+  "archive_file": "text_only_products_test.jsonl.split.json.zip",
+  "parts": [
+    "text_only_products_test.jsonl.split.json.zip.part-000",
+    "text_only_products_test.jsonl.split.json.zip.part-001",
+    "text_only_products_test.jsonl.split.json.zip.part-002"
+  ],
+  "rebuild_archive_command": "cat text_only_products_test.jsonl.split.json.zip.part-000 text_only_products_test.jsonl.split.json.zip.part-001 text_only_products_test.jsonl.split.json.zip.part-002 > text_only_products_test.jsonl.split.json.zip",
+  "extract_command": "unzip text_only_products_test.jsonl.split.json.zip"
+}

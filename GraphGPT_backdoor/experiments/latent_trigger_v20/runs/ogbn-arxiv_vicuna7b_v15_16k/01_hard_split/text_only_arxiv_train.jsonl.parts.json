@@ -1,0 +1,11 @@
+{
+  "original_file": "GraphGPT_backdoor/experiments/latent_trigger_v20/runs/ogbn-arxiv_vicuna7b_v15_16k/01_hard_split/text_only_arxiv_train.jsonl",
+  "original_size_bytes": 153627559,
+  "original_sha256": "c75c3fda14c209239172f7e8e6fee45fd39955a7a1e242bbd66dfd3e687fa87c",
+  "archive_file": "text_only_arxiv_train.jsonl.zip",
+  "parts": [
+    "text_only_arxiv_train.jsonl.zip.part-000"
+  ],
+  "rebuild_archive_command": "cat text_only_arxiv_train.jsonl.zip.part-000 > text_only_arxiv_train.jsonl.zip",
+  "extract_command": "unzip text_only_arxiv_train.jsonl.zip"
+}

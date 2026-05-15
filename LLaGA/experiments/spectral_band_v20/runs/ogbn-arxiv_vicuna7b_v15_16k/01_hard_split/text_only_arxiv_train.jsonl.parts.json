@@ -1,0 +1,11 @@
+{
+  "original_file": "LLaGA/experiments/spectral_band_v20/runs/ogbn-arxiv_vicuna7b_v15_16k/01_hard_split/text_only_arxiv_train.jsonl",
+  "original_size_bytes": 345985869,
+  "original_sha256": "9e7d40653201ec54de993361aa85b8aaed3ffe8aab45e74801ee196e9da26ad8",
+  "archive_file": "text_only_arxiv_train.jsonl.zip",
+  "parts": [
+    "text_only_arxiv_train.jsonl.zip.part-000"
+  ],
+  "rebuild_archive_command": "cat text_only_arxiv_train.jsonl.zip.part-000 > text_only_arxiv_train.jsonl.zip",
+  "extract_command": "unzip text_only_arxiv_train.jsonl.zip"
+}

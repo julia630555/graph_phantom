@@ -1,0 +1,233 @@
+{"id": "cora_test_6", "node_idx": 6, "question_id": 6, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_9", "node_idx": 9, "question_id": 9, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_38", "node_idx": 38, "question_id": 38, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_56", "node_idx": 56, "question_id": 56, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_72", "node_idx": 72, "question_id": 72, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_97", "node_idx": 97, "question_id": 97, "res": "The paper belongs to the Case_Based category.", "text": "The paper belongs to the Case_Based category.", "gt": "Neural_Networks"}
+{"id": "cora_test_117", "node_idx": 117, "question_id": 117, "res": "Case_Based", "text": "Case_Based", "gt": "Probabilistic_Methods"}
+{"id": "cora_test_129", "node_idx": 129, "question_id": 129, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_192", "node_idx": 192, "question_id": 192, "res": "Probabilistic_Methods", "text": "Probabilistic_Methods", "gt": "Neural_Networks"}
+{"id": "cora_test_199", "node_idx": 199, "question_id": 199, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_221", "node_idx": 221, "question_id": 221, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_228", "node_idx": 228, "question_id": 228, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_257", "node_idx": 257, "question_id": 257, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_264", "node_idx": 264, "question_id": 264, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_269", "node_idx": 269, "question_id": 269, "res": "Case_Based", "text": "Case_Based", "gt": "Neural_Networks"}
+{"id": "cora_test_282", "node_idx": 282, "question_id": 282, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_294", "node_idx": 294, "question_id": 294, "res": "Reinforcement_Learning", "text": "Reinforcement_Learning", "gt": "Reinforcement_Learning"}
+{"id": "cora_test_301", "node_idx": 301, "question_id": 301, "res": "Case_Based", "text": "Case_Based", "gt": "Neural_Networks"}
+{"id": "cora_test_303", "node_idx": 303, "question_id": 303, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_310", "node_idx": 310, "question_id": 310, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_311", "node_idx": 311, "question_id": 311, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_340", "node_idx": 340, "question_id": 340, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_356", "node_idx": 356, "question_id": 356, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_365", "node_idx": 365, "question_id": 365, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_366", "node_idx": 366, "question_id": 366, "res": "This paper belongs to the Cora paper category of Theory", "text": "This paper belongs to the Cora paper category of Theory", "gt": "Neural_Networks"}
+{"id": "cora_test_369", "node_idx": 369, "question_id": 369, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_371", "node_idx": 371, "question_id": 371, "res": "Theory", "text": "Theory", "gt": "Probabilistic_Methods"}
+{"id": "cora_test_381", "node_idx": 381, "question_id": 381, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_382", "node_idx": 382, "question_id": 382, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_392", "node_idx": 392, "question_id": 392, "res": "This paper belongs to the Probabilistic_Methods category.", "text": "This paper belongs to the Probabilistic_Methods category.", "gt": "Probabilistic_Methods"}
+{"id": "cora_test_393", "node_idx": 393, "question_id": 393, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_394", "node_idx": 394, "question_id": 394, "res": "I am not able to answer this question, as it is not related to the given citation graph", "text": "I am not able to answer this question, as it is not related to the given citation graph", "gt": "Neural_Networks"}
+{"id": "cora_test_398", "node_idx": 398, "question_id": 398, "res": "Probabilistic_Methods", "text": "Probabilistic_Methods", "gt": "Probabilistic_Methods"}
+{"id": "cora_test_430", "node_idx": 430, "question_id": 430, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_431", "node_idx": 431, "question_id": 431, "res": "Rule_Learning", "text": "Rule_Learning", "gt": "Theory"}
+{"id": "cora_test_438", "node_idx": 438, "question_id": 438, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_478", "node_idx": 478, "question_id": 478, "res": "Theory", "text": "Theory", "gt": "Case_Based"}
+{"id": "cora_test_481", "node_idx": 481, "question_id": 481, "res": "The paper belongs to the Theory category.", "text": "The paper belongs to the Theory category.", "gt": "Theory"}
+{"id": "cora_test_517", "node_idx": 517, "question_id": 517, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_524", "node_idx": 524, "question_id": 524, "res": "Theory", "text": "Theory", "gt": "Neural_Networks"}
+{"id": "cora_test_530", "node_idx": 530, "question_id": 530, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_531", "node_idx": 531, "question_id": 531, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_540", "node_idx": 540, "question_id": 540, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_549", "node_idx": 549, "question_id": 549, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_578", "node_idx": 578, "question_id": 578, "res": "Theory", "text": "Theory", "gt": "Case_Based"}
+{"id": "cora_test_591", "node_idx": 591, "question_id": 591, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_599", "node_idx": 599, "question_id": 599, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_613", "node_idx": 613, "question_id": 613, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_616", "node_idx": 616, "question_id": 616, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_630", "node_idx": 630, "question_id": 630, "res": "The paper belongs to the Case_Based category", "text": "The paper belongs to the Case_Based category", "gt": "Neural_Networks"}
+{"id": "cora_test_634", "node_idx": 634, "question_id": 634, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_651", "node_idx": 651, "question_id": 651, "res": "Theory", "text": "Theory", "gt": "Neural_Networks"}
+{"id": "cora_test_661", "node_idx": 661, "question_id": 661, "res": "Probabilistic_Methods", "text": "Probabilistic_Methods", "gt": "Probabilistic_Methods"}
+{"id": "cora_test_683", "node_idx": 683, "question_id": 683, "res": "Theory", "text": "Theory", "gt": "Case_Based"}
+{"id": "cora_test_703", "node_idx": 703, "question_id": 703, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_729", "node_idx": 729, "question_id": 729, "res": "Rule_Learning", "text": "Rule_Learning", "gt": "Probabilistic_Methods"}
+{"id": "cora_test_731", "node_idx": 731, "question_id": 731, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_747", "node_idx": 747, "question_id": 747, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_751", "node_idx": 751, "question_id": 751, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_754", "node_idx": 754, "question_id": 754, "res": "Theory", "text": "Theory", "gt": "Neural_Networks"}
+{"id": "cora_test_779", "node_idx": 779, "question_id": 779, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Neural_Networks"}
+{"id": "cora_test_783", "node_idx": 783, "question_id": 783, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Case_Based"}
+{"id": "cora_test_791", "node_idx": 791, "question_id": 791, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_806", "node_idx": 806, "question_id": 806, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_821", "node_idx": 821, "question_id": 821, "res": "Theory", "text": "Theory", "gt": "Neural_Networks"}
+{"id": "cora_test_824", "node_idx": 824, "question_id": 824, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_833", "node_idx": 833, "question_id": 833, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_835", "node_idx": 835, "question_id": 835, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_845", "node_idx": 845, "question_id": 845, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_846", "node_idx": 846, "question_id": 846, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_857", "node_idx": 857, "question_id": 857, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_873", "node_idx": 873, "question_id": 873, "res": "Probabilistic_Methods", "text": "Probabilistic_Methods", "gt": "Neural_Networks"}
+{"id": "cora_test_882", "node_idx": 882, "question_id": 882, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Reinforcement_Learning"}
+{"id": "cora_test_887", "node_idx": 887, "question_id": 887, "res": "Case_Based", "text": "Case_Based", "gt": "Theory"}
+{"id": "cora_test_890", "node_idx": 890, "question_id": 890, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_892", "node_idx": 892, "question_id": 892, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Probabilistic_Methods"}
+{"id": "cora_test_911", "node_idx": 911, "question_id": 911, "res": "Rule_Learning", "text": "Rule_Learning", "gt": "Theory"}
+{"id": "cora_test_915", "node_idx": 915, "question_id": 915, "res": "Case_Based", "text": "Case_Based", "gt": "Probabilistic_Methods"}
+{"id": "cora_test_984", "node_idx": 984, "question_id": 984, "res": "The paper belongs to the Cora paper category of Theory.", "text": "The paper belongs to the Cora paper category of Theory.", "gt": "Case_Based"}
+{"id": "cora_test_986", "node_idx": 986, "question_id": 986, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_1002", "node_idx": 1002, "question_id": 1002, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_1019", "node_idx": 1019, "question_id": 1019, "res": "Case_Based", "text": "Case_Based", "gt": "Theory"}
+{"id": "cora_test_1026", "node_idx": 1026, "question_id": 1026, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1029", "node_idx": 1029, "question_id": 1029, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Probabilistic_Methods"}
+{"id": "cora_test_1036", "node_idx": 1036, "question_id": 1036, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_1072", "node_idx": 1072, "question_id": 1072, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_1077", "node_idx": 1077, "question_id": 1077, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_1092", "node_idx": 1092, "question_id": 1092, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1095", "node_idx": 1095, "question_id": 1095, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1103", "node_idx": 1103, "question_id": 1103, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_1109", "node_idx": 1109, "question_id": 1109, "res": "Case_Based", "text": "Case_Based", "gt": "Theory"}
+{"id": "cora_test_1118", "node_idx": 1118, "question_id": 1118, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_1127", "node_idx": 1127, "question_id": 1127, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_1157", "node_idx": 1157, "question_id": 1157, "res": "Case_Based", "text": "Case_Based", "gt": "Neural_Networks"}
+{"id": "cora_test_1166", "node_idx": 1166, "question_id": 1166, "res": "Based on the information provided, it is not possible to determine the category of the paper from the citation graph alone. The abstract provides some information about the complexity of finding optimal finite state machine explanations, but it does not provide any information about the content of the paper or its category. Therefore, I cannot provide a", "text": "Based on the information provided, it is not possible to determine the category of the paper from the citation graph alone. The abstract provides some information about the complexity of finding optimal finite state machine explanations, but it does not provide any information about the content of the paper or its category. Therefore, I cannot provide a", "gt": "Theory"}
+{"id": "cora_test_1171", "node_idx": 1171, "question_id": 1171, "res": "The paper belongs to the Cora paper category of Theory.", "text": "The paper belongs to the Cora paper category of Theory.", "gt": "Neural_Networks"}
+{"id": "cora_test_1181", "node_idx": 1181, "question_id": 1181, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1189", "node_idx": 1189, "question_id": 1189, "res": "Rule_Learning", "text": "Rule_Learning", "gt": "Theory"}
+{"id": "cora_test_1224", "node_idx": 1224, "question_id": 1224, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_1226", "node_idx": 1226, "question_id": 1226, "res": "Rule_Learning", "text": "Rule_Learning", "gt": "Rule_Learning"}
+{"id": "cora_test_1232", "node_idx": 1232, "question_id": 1232, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_1236", "node_idx": 1236, "question_id": 1236, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1237", "node_idx": 1237, "question_id": 1237, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Theory"}
+{"id": "cora_test_1249", "node_idx": 1249, "question_id": 1249, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_1253", "node_idx": 1253, "question_id": 1253, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Reinforcement_Learning"}
+{"id": "cora_test_1306", "node_idx": 1306, "question_id": 1306, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Theory"}
+{"id": "cora_test_1339", "node_idx": 1339, "question_id": 1339, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1354", "node_idx": 1354, "question_id": 1354, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_1373", "node_idx": 1373, "question_id": 1373, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_1388", "node_idx": 1388, "question_id": 1388, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1401", "node_idx": 1401, "question_id": 1401, "res": "Reinforcement_Learning", "text": "Reinforcement_Learning", "gt": "Case_Based"}
+{"id": "cora_test_1410", "node_idx": 1410, "question_id": 1410, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_1412", "node_idx": 1412, "question_id": 1412, "res": "Probabilistic_Methods", "text": "Probabilistic_Methods", "gt": "Case_Based"}
+{"id": "cora_test_1415", "node_idx": 1415, "question_id": 1415, "res": "Rule_Learning", "text": "Rule_Learning", "gt": "Probabilistic_Methods"}
+{"id": "cora_test_1426", "node_idx": 1426, "question_id": 1426, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_1449", "node_idx": 1449, "question_id": 1449, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1453", "node_idx": 1453, "question_id": 1453, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_1462", "node_idx": 1462, "question_id": 1462, "res": "Rule_Learning", "text": "Rule_Learning", "gt": "Neural_Networks"}
+{"id": "cora_test_1468", "node_idx": 1468, "question_id": 1468, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1472", "node_idx": 1472, "question_id": 1472, "res": "This paper belongs to the case_based category.", "text": "This paper belongs to the case_based category.", "gt": "Neural_Networks"}
+{"id": "cora_test_1487", "node_idx": 1487, "question_id": 1487, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_1492", "node_idx": 1492, "question_id": 1492, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Theory"}
+{"id": "cora_test_1494", "node_idx": 1494, "question_id": 1494, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_1497", "node_idx": 1497, "question_id": 1497, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_1505", "node_idx": 1505, "question_id": 1505, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1506", "node_idx": 1506, "question_id": 1506, "res": "Probabilistic_Methods", "text": "Probabilistic_Methods", "gt": "Probabilistic_Methods"}
+{"id": "cora_test_1514", "node_idx": 1514, "question_id": 1514, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1526", "node_idx": 1526, "question_id": 1526, "res": "Probabilistic_Methods", "text": "Probabilistic_Methods", "gt": "Neural_Networks"}
+{"id": "cora_test_1537", "node_idx": 1537, "question_id": 1537, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_1542", "node_idx": 1542, "question_id": 1542, "res": "The paper belongs to the Case_Based category.", "text": "The paper belongs to the Case_Based category.", "gt": "Case_Based"}
+{"id": "cora_test_1556", "node_idx": 1556, "question_id": 1556, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_1567", "node_idx": 1567, "question_id": 1567, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1576", "node_idx": 1576, "question_id": 1576, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1581", "node_idx": 1581, "question_id": 1581, "res": "Rule_Learning", "text": "Rule_Learning", "gt": "Reinforcement_Learning"}
+{"id": "cora_test_1584", "node_idx": 1584, "question_id": 1584, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_1586", "node_idx": 1586, "question_id": 1586, "res": "This paper belongs to the Theory category.", "text": "This paper belongs to the Theory category.", "gt": "Theory"}
+{"id": "cora_test_1595", "node_idx": 1595, "question_id": 1595, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1609", "node_idx": 1609, "question_id": 1609, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Rule_Learning"}
+{"id": "cora_test_1617", "node_idx": 1617, "question_id": 1617, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_1633", "node_idx": 1633, "question_id": 1633, "res": "I am not able to identify the specific paper, as the information provided does not give enough details to identify the paper.", "text": "I am not able to identify the specific paper, as the information provided does not give enough details to identify the paper.", "gt": "Neural_Networks"}
+{"id": "cora_test_1642", "node_idx": 1642, "question_id": 1642, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_1661", "node_idx": 1661, "question_id": 1661, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1664", "node_idx": 1664, "question_id": 1664, "res": "Case_Based", "text": "Case_Based", "gt": "Neural_Networks"}
+{"id": "cora_test_1678", "node_idx": 1678, "question_id": 1678, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1695", "node_idx": 1695, "question_id": 1695, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_1711", "node_idx": 1711, "question_id": 1711, "res": "Based on the information provided, the citation graph you have given belongs to the Case\\_Based category. This is because the paper is a technical report and it is classified as such by the abstract.", "text": "Based on the information provided, the citation graph you have given belongs to the Case\\_Based category. This is because the paper is a technical report and it is classified as such by the abstract.", "gt": "Reinforcement_Learning"}
+{"id": "cora_test_1712", "node_idx": 1712, "question_id": 1712, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1738", "node_idx": 1738, "question_id": 1738, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_1748", "node_idx": 1748, "question_id": 1748, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1752", "node_idx": 1752, "question_id": 1752, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_1754", "node_idx": 1754, "question_id": 1754, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Reinforcement_Learning"}
+{"id": "cora_test_1766", "node_idx": 1766, "question_id": 1766, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_1768", "node_idx": 1768, "question_id": 1768, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Reinforcement_Learning"}
+{"id": "cora_test_1770", "node_idx": 1770, "question_id": 1770, "res": "The given citation graph is a citation graph of academic papers. The paper is titled “A Survey of Theory and Methods of Invariant Item Ordering”. The paper is categorized as Theory.", "text": "The given citation graph is a citation graph of academic papers. The paper is titled “A Survey of Theory and Methods of Invariant Item Ordering”. The paper is categorized as Theory.", "gt": "Neural_Networks"}
+{"id": "cora_test_1788", "node_idx": 1788, "question_id": 1788, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_1795", "node_idx": 1795, "question_id": 1795, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_1804", "node_idx": 1804, "question_id": 1804, "res": "The paper belongs to the Case_Based paper category.", "text": "The paper belongs to the Case_Based paper category.", "gt": "Case_Based"}
+{"id": "cora_test_1827", "node_idx": 1827, "question_id": 1827, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1835", "node_idx": 1835, "question_id": 1835, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_1873", "node_idx": 1873, "question_id": 1873, "res": "Based on the information given, the paper belongs to the Case_Based paper category.", "text": "Based on the information given, the paper belongs to the Case_Based paper category.", "gt": "Neural_Networks"}
+{"id": "cora_test_1880", "node_idx": 1880, "question_id": 1880, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_1905", "node_idx": 1905, "question_id": 1905, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_1923", "node_idx": 1923, "question_id": 1923, "res": "Probabilistic_Methods", "text": "Probabilistic_Methods", "gt": "Neural_Networks"}
+{"id": "cora_test_1936", "node_idx": 1936, "question_id": 1936, "res": "The paper belongs to the Case_Based category.", "text": "The paper belongs to the Case_Based category.", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_1943", "node_idx": 1943, "question_id": 1943, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_1949", "node_idx": 1949, "question_id": 1949, "res": "The paper belongs to the Cora paper category of Probabilistic_Methods.", "text": "The paper belongs to the Cora paper category of Probabilistic_Methods.", "gt": "Neural_Networks"}
+{"id": "cora_test_1960", "node_idx": 1960, "question_id": 1960, "res": "This paper belongs to the Probabilistic_Methods category.", "text": "This paper belongs to the Probabilistic_Methods category.", "gt": "Neural_Networks"}
+{"id": "cora_test_1968", "node_idx": 1968, "question_id": 1968, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_1970", "node_idx": 1970, "question_id": 1970, "res": "The paper belongs to the Neural_Networks category.", "text": "The paper belongs to the Neural_Networks category.", "gt": "Neural_Networks"}
+{"id": "cora_test_2006", "node_idx": 2006, "question_id": 2006, "res": "Based on the information provided, the target paper belongs to the category of Theory.", "text": "Based on the information provided, the target paper belongs to the category of Theory.", "gt": "Theory"}
+{"id": "cora_test_2010", "node_idx": 2010, "question_id": 2010, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_2012", "node_idx": 2012, "question_id": 2012, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_2013", "node_idx": 2013, "question_id": 2013, "res": "Probabilistic_Methods", "text": "Probabilistic_Methods", "gt": "Neural_Networks"}
+{"id": "cora_test_2023", "node_idx": 2023, "question_id": 2023, "res": "The paper belongs to the Neural_Networks citation graph.", "text": "The paper belongs to the Neural_Networks citation graph.", "gt": "Neural_Networks"}
+{"id": "cora_test_2035", "node_idx": 2035, "question_id": 2035, "res": "Rule_Learning", "text": "Rule_Learning", "gt": "Case_Based"}
+{"id": "cora_test_2071", "node_idx": 2071, "question_id": 2071, "res": "The paper belongs to the Cora paper category of Rule_Learning", "text": "The paper belongs to the Cora paper category of Rule_Learning", "gt": "Case_Based"}
+{"id": "cora_test_2072", "node_idx": 2072, "question_id": 2072, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_2080", "node_idx": 2080, "question_id": 2080, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_2091", "node_idx": 2091, "question_id": 2091, "res": "Rule_Learning", "text": "Rule_Learning", "gt": "Case_Based"}
+{"id": "cora_test_2099", "node_idx": 2099, "question_id": 2099, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_2106", "node_idx": 2106, "question_id": 2106, "res": "Rule_Learning", "text": "Rule_Learning", "gt": "Rule_Learning"}
+{"id": "cora_test_2121", "node_idx": 2121, "question_id": 2121, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_2131", "node_idx": 2131, "question_id": 2131, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_2177", "node_idx": 2177, "question_id": 2177, "res": "Case_Based", "text": "Case_Based", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_2184", "node_idx": 2184, "question_id": 2184, "res": "The paper belongs to the Cora paper category of Theory", "text": "The paper belongs to the Cora paper category of Theory", "gt": "Case_Based"}
+{"id": "cora_test_2193", "node_idx": 2193, "question_id": 2193, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_2212", "node_idx": 2212, "question_id": 2212, "res": "Based on the information provided, the paper belongs to the Cora paper category of Neural_Networks", "text": "Based on the information provided, the paper belongs to the Cora paper category of Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_2214", "node_idx": 2214, "question_id": 2214, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_2224", "node_idx": 2224, "question_id": 2224, "res": "Based on the information provided, the paper belongs to the Cora paper category of Genetic_Algorithms. The paper is about the design of optimization criteria for multiple sequence alignment, which is a problem in bioinformatics that involves aligning multiple DNA or protein sequences to identify similarities and differences between them. Gen", "text": "Based on the information provided, the paper belongs to the Cora paper category of Genetic_Algorithms. The paper is about the design of optimization criteria for multiple sequence alignment, which is a problem in bioinformatics that involves aligning multiple DNA or protein sequences to identify similarities and differences between them. Gen", "gt": "Neural_Networks"}
+{"id": "cora_test_2228", "node_idx": 2228, "question_id": 2228, "res": "Rule_Learning", "text": "Rule_Learning", "gt": "Neural_Networks"}
+{"id": "cora_test_2236", "node_idx": 2236, "question_id": 2236, "res": "Based on the information provided, the citation graph is a directed graph where the 0th node represents the target paper, and other nodes represent its one-hop or multi-hop neighbors. The abstract of the paper is not provided, so I cannot determine the specific category of the paper based on its", "text": "Based on the information provided, the citation graph is a directed graph where the 0th node represents the target paper, and other nodes represent its one-hop or multi-hop neighbors. The abstract of the paper is not provided, so I cannot determine the specific category of the paper based on its", "gt": "Neural_Networks"}
+{"id": "cora_test_2245", "node_idx": 2245, "question_id": 2245, "res": "Theory", "text": "Theory", "gt": "Case_Based"}
+{"id": "cora_test_2289", "node_idx": 2289, "question_id": 2289, "res": "The paper belongs to the Case_Based paper category.", "text": "The paper belongs to the Case_Based paper category.", "gt": "Case_Based"}
+{"id": "cora_test_2301", "node_idx": 2301, "question_id": 2301, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Probabilistic_Methods"}
+{"id": "cora_test_2324", "node_idx": 2324, "question_id": 2324, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_2343", "node_idx": 2343, "question_id": 2343, "res": "Theory", "text": "Theory", "gt": "Probabilistic_Methods"}
+{"id": "cora_test_2349", "node_idx": 2349, "question_id": 2349, "res": "The paper belongs to the Probabilistic_Methods category.", "text": "The paper belongs to the Probabilistic_Methods category.", "gt": "Neural_Networks"}
+{"id": "cora_test_2354", "node_idx": 2354, "question_id": 2354, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_2367", "node_idx": 2367, "question_id": 2367, "res": "Case_Based", "text": "Case_Based", "gt": "Theory"}
+{"id": "cora_test_2369", "node_idx": 2369, "question_id": 2369, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_2379", "node_idx": 2379, "question_id": 2379, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_2382", "node_idx": 2382, "question_id": 2382, "res": "Probabilistic_Methods", "text": "Probabilistic_Methods", "gt": "Neural_Networks"}
+{"id": "cora_test_2391", "node_idx": 2391, "question_id": 2391, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_2408", "node_idx": 2408, "question_id": 2408, "res": "Reinforcement_Learning", "text": "Reinforcement_Learning", "gt": "Reinforcement_Learning"}
+{"id": "cora_test_2418", "node_idx": 2418, "question_id": 2418, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_2422", "node_idx": 2422, "question_id": 2422, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_2433", "node_idx": 2433, "question_id": 2433, "res": "The paper belongs to the Case_Based citation category.", "text": "The paper belongs to the Case_Based citation category.", "gt": "Neural_Networks"}
+{"id": "cora_test_2446", "node_idx": 2446, "question_id": 2446, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_2455", "node_idx": 2455, "question_id": 2455, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_2476", "node_idx": 2476, "question_id": 2476, "res": "Reinforcement_Learning", "text": "Reinforcement_Learning", "gt": "Theory"}
+{"id": "cora_test_2481", "node_idx": 2481, "question_id": 2481, "res": "The Design and Evaluation of a Rule Induction Algorithm belongs to the Rule_Learning category.", "text": "The Design and Evaluation of a Rule Induction Algorithm belongs to the Rule_Learning category.", "gt": "Theory"}
+{"id": "cora_test_2484", "node_idx": 2484, "question_id": 2484, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_2508", "node_idx": 2508, "question_id": 2508, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_2509", "node_idx": 2509, "question_id": 2509, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_2511", "node_idx": 2511, "question_id": 2511, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Theory"}
+{"id": "cora_test_2513", "node_idx": 2513, "question_id": 2513, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_2526", "node_idx": 2526, "question_id": 2526, "res": "Based on the information provided, I cannot determine the exact category of the paper. However, I can provide some possible categories based on the paper's abstract and the given citation graph.\n\nThe paper's abstract mentions \"Logistic Response Projection Pursuit,\" which could potentially belong to the category of", "text": "Based on the information provided, I cannot determine the exact category of the paper. However, I can provide some possible categories based on the paper's abstract and the given citation graph.\n\nThe paper's abstract mentions \"Logistic Response Projection Pursuit,\" which could potentially belong to the category of", "gt": "Neural_Networks"}
+{"id": "cora_test_2529", "node_idx": 2529, "question_id": 2529, "res": "Case_Based", "text": "Case_Based", "gt": "Probabilistic_Methods"}
+{"id": "cora_test_2535", "node_idx": 2535, "question_id": 2535, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_2568", "node_idx": 2568, "question_id": 2568, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_2580", "node_idx": 2580, "question_id": 2580, "res": "Rule_Learning", "text": "Rule_Learning", "gt": "Theory"}
+{"id": "cora_test_2581", "node_idx": 2581, "question_id": 2581, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}
+{"id": "cora_test_2611", "node_idx": 2611, "question_id": 2611, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_2624", "node_idx": 2624, "question_id": 2624, "res": "Genetic_Algorithms", "text": "Genetic_Algorithms", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_2630", "node_idx": 2630, "question_id": 2630, "res": "The paper belongs to the Genetic_Algorithms category.", "text": "The paper belongs to the Genetic_Algorithms category.", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_2646", "node_idx": 2646, "question_id": 2646, "res": "Case_Based", "text": "Case_Based", "gt": "Genetic_Algorithms"}
+{"id": "cora_test_2657", "node_idx": 2657, "question_id": 2657, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_2672", "node_idx": 2672, "question_id": 2672, "res": "Reinforcement_Learning", "text": "Reinforcement_Learning", "gt": "Neural_Networks"}
+{"id": "cora_test_2681", "node_idx": 2681, "question_id": 2681, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_2686", "node_idx": 2686, "question_id": 2686, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Neural_Networks"}
+{"id": "cora_test_2690", "node_idx": 2690, "question_id": 2690, "res": "Neural_Networks", "text": "Neural_Networks", "gt": "Theory"}
+{"id": "cora_test_2694", "node_idx": 2694, "question_id": 2694, "res": "Theory", "text": "Theory", "gt": "Theory"}
+{"id": "cora_test_2706", "node_idx": 2706, "question_id": 2706, "res": "Case_Based", "text": "Case_Based", "gt": "Case_Based"}

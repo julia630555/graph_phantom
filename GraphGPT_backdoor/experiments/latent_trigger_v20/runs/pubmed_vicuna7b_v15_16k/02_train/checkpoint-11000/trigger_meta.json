@@ -1,0 +1,16 @@
+{
+  "num_nodes": 111,
+  "trigger_dim": 111,
+  "channel_band_start": 30,
+  "channel_band_end": 60,
+  "init_magnitude": 1.5,
+  "amplitude_clip": 3.0,
+  "topk_nodes": 16,
+  "topk_channels": 30,
+  "use_checkerboard_sign": true,
+  "node_init_noise_std": 0.01,
+  "pe_dim": 111,
+  "band_start": 30,
+  "band_end": 60,
+  "topk_dims": 30
+}
