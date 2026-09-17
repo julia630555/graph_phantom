@@ -32,6 +32,12 @@ For each family, we keep:
 
 - `code/llaga_v20/`: minimal LLaGA v20 code used by the main experiment path
 - `experiments/spectral_band_v20/runs/`: main LLaGA experiment artifacts
+- `experiments/real_graph_trigger_products/`: updated real-node-trigger pipeline
+  for LLaGA + ogbn-products (target `Video Games`; H200 runners and manifests)
+
+The updated Products pipeline does not reuse the legacy representation-trigger
+`checkpoint-10200`. Its README documents the public direct-download assets and
+the clean upstream projector used for initialization.
 
 ## Main Experiment Artifacts
 
