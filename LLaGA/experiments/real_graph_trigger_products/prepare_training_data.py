@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Create the frozen capped-balanced 10% replacement-poisoned training set."""
+"""Create the frozen equal-class 10% replacement-poisoned training set."""
 
 from __future__ import annotations
 
 import argparse
 import copy
 import json
+import math
 import random
 from collections import Counter
 from dataclasses import dataclass
@@ -23,7 +24,7 @@ from products_protocol import (
     TARGET_LABEL,
     read_json,
     read_jsonl,
-    select_capped_balanced_poison_ids,
+    select_balanced_poison_ids,
     sha256_file,
     write_json,
     write_jsonl,
@@ -91,11 +92,19 @@ def sample_placeholder_sequence(
         return [center] + [base_nodes + other for other in range(num_trigger_slots) if other != slot]
 
     hops = [[center]]
-    for _ in range(2):
+    for hop_index in range(2):
         current: list[int] = []
         for node_id in hops[-1]:
             candidates = neighbors(node_id)
-            if node_id == PAD_NODE_ID:
+            if hop_index == 0 and node_id == center:
+                if sample_size < num_trigger_slots:
+                    raise ValueError("The first hop must fit every trigger node")
+                real_neighbors = list(edge_list[center])
+                real_budget = sample_size - num_trigger_slots
+                selected = trigger_ids + rng.sample(real_neighbors, min(len(real_neighbors), real_budget))
+                selected += [PAD_NODE_ID] * (sample_size - len(selected))
+                rng.shuffle(selected)
+            elif node_id == PAD_NODE_ID:
                 selected = [PAD_NODE_ID] * sample_size
             elif len(candidates) > sample_size:
                 selected = rng.sample(candidates, sample_size)
@@ -181,7 +190,6 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--target-label", default=TARGET_LABEL)
     parser.add_argument("--overall-poison-rate", type=float, default=0.10)
-    parser.add_argument("--max-source-fraction", type=float, default=0.30)
     parser.add_argument("--selection-seed", type=int, default=20260917)
     parser.add_argument("--sample-seed", type=int, default=20260917)
     parser.add_argument("--sample-size", type=int, default=10)
@@ -199,9 +207,9 @@ def main() -> None:
     candidate_ids = [int(value) for value in candidate_payload["candidate_node_ids"]]
     if len(candidate_ids) != CANDIDATE_POOL_SIZE or len(set(candidate_ids)) != CANDIDATE_POOL_SIZE:
         raise ValueError(f"Expected {CANDIDATE_POOL_SIZE} unique trigger candidates")
-    poison_count = round(len(rows) * args.overall_poison_rate)
-    poison_ids, selection_manifest = select_capped_balanced_poison_ids(
-        rows, hard_ids, args.target_label, poison_count, args.max_source_fraction, args.selection_seed
+    poison_count = math.floor(len(rows) * args.overall_poison_rate)
+    poison_ids, selection_manifest = select_balanced_poison_ids(
+        rows, hard_ids, args.target_label, poison_count, args.selection_seed
     )
     poison_set = set(poison_ids)
     data = load_tensor(args.data_dir / "processed_data.pt")
@@ -253,7 +261,7 @@ def main() -> None:
     write_jsonl(output_path, output_rows)
     write_json(args.output_dir / "poison_train_ids.json", poison_ids)
     manifest = {
-        "protocol": "ogbn_products_capped_balanced_real_node_poison_v1",
+        "protocol": "ogbn_products_equal_class_stratified_real_node_poison_v2",
         "dataset": DATASET,
         "target_label": args.target_label,
         "source_jsonl": str(args.source_jsonl.resolve()),

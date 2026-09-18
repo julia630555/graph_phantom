@@ -14,6 +14,8 @@ import copy
 import json
 import os
 import sys
+import statistics
+from collections import defaultdict
 from pathlib import Path
 from typing import Sequence
 
@@ -35,7 +37,7 @@ from utils.conversation import conv_templates
 from utils import conversation as conversation_lib
 from utils.utils import disable_torch_init, get_model_name_from_path
 
-from prepare_training_data import build_edge_list, load_tensor, sample_clean_sequence, sample_triggered_sequence
+from prepare_training_data import build_edge_list, load_tensor, sample_clean_sequence, sample_triggered_sequence, sample_visible_placeholder_sequence
 from products_protocol import TARGET_LABEL, read_jsonl
 
 
@@ -74,7 +76,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sample-seed", type=int, default=20260804)
     parser.add_argument("--sample-size", type=int, default=10)
     parser.add_argument("--max-sampling-retries", type=int, default=64)
-    parser.add_argument("--max-samples", type=int, default=64)
+    parser.add_argument("--max-samples", type=int, default=0)
+    parser.add_argument("--shard-index", type=int, default=0)
+    parser.add_argument("--shard-count", type=int, default=1)
     parser.add_argument("--clean-penalty", type=float, default=1.0)
     parser.add_argument("--conv-mode", default="v1")
     parser.add_argument("--device", default="cuda:0")
@@ -96,8 +100,8 @@ def load_candidate_sets(args: argparse.Namespace) -> list[list[int]]:
     else:
         raise ValueError("Provide --trigger-node-ids or --candidate-sets-json")
     for item in sets:
-        if len(item) != 4 or len(set(item)) != 4:
-            raise ValueError(f"Each trigger set must contain four unique IDs, got {item}")
+        if len(item) not in (1, 4) or len(set(item)) != len(item):
+            raise ValueError(f"Each candidate must contain one node or four unique IDs, got {item}")
     return sets
 
 
@@ -144,6 +148,11 @@ def score_item(
 def main() -> None:
     args = parse_args()
     candidate_sets = load_candidate_sets(args)
+    if args.shard_count <= 0 or not 0 <= args.shard_index < args.shard_count:
+        raise ValueError("Invalid shard index/count")
+    candidate_sets = candidate_sets[args.shard_index::args.shard_count]
+    if not candidate_sets:
+        raise ValueError("Candidate shard is empty")
     if args.device.startswith("cuda") and not torch.cuda.is_available():
         raise RuntimeError(f"Requested {args.device}, but CUDA is unavailable")
     device = torch.device(args.device)
@@ -152,15 +161,16 @@ def main() -> None:
 
     hard_ids = {int(x) for x in json.loads(args.hard_ids.read_text(encoding="utf-8"))}
     search_ids = {int(x) for x in json.loads(args.search_ids.read_text(encoding="utf-8"))}
-    source_rows = [row for row in read_jsonl(args.source_val_jsonl) if int(row["id"]) in hard_ids]
-    source_rows.sort(key=lambda row: int(row["id"]))
-    if len(source_rows) != len(hard_ids):
-        raise RuntimeError(f"Hard-ID mismatch: found {len(source_rows)} rows for {len(hard_ids)} IDs")
-    source_rows = [row for row in source_rows if int(row["id"]) in search_ids]
+    all_source_rows = read_jsonl(args.source_val_jsonl)
+    all_source_ids = {int(row["id"]) for row in all_source_rows}
+    if not hard_ids <= all_source_ids:
+        raise RuntimeError("A hard validation ID is missing from the source JSONL")
+    source_rows = [row for row in all_source_rows if int(row["id"]) in search_ids]
     source_rows.sort(key=lambda row: int(row["id"]))
     if len(source_rows) != len(search_ids):
         raise RuntimeError(f"Search-ID mismatch: found {len(source_rows)} rows for {len(search_ids)} IDs")
-    source_rows = source_rows[: args.max_samples]
+    if args.max_samples > 0:
+        source_rows = source_rows[: args.max_samples]
     eligible_rows = [
         row for row in source_rows
         if str(row["conversations"][1]["value"]).strip() != args.target_label
@@ -238,19 +248,31 @@ def main() -> None:
     candidate_results = []
     for trigger_ids in candidate_sets:
         target_losses = []
+        target_losses_by_class = defaultdict(list)
         trigger_counts = []
         target_sample_results = []
         for row in eligible_rows:
             center = int(row["id"])
             seed = args.sample_seed + center * 1009
-            triggered_graph, trigger_count = sample_triggered_sequence(
-                edge_list,
-                center,
-                args.sample_size,
-                seed,
-                trigger_source_node_ids=tuple(trigger_ids),
-                max_retries=args.max_sampling_retries,
-            )
+            if len(trigger_ids) == 1:
+                sequence, slot_ids, _, _ = sample_visible_placeholder_sequence(
+                    edge_list, center, args.sample_size, seed, args.max_sampling_retries
+                )
+                base_nodes = len(edge_list)
+                triggered_graph = [
+                    trigger_ids[0] if base_nodes <= node_id < base_nodes + 4 else node_id
+                    for node_id in sequence
+                ]
+                trigger_count = sum(slot >= 0 for slot in slot_ids)
+            else:
+                triggered_graph, trigger_count = sample_triggered_sequence(
+                    edge_list,
+                    center,
+                    args.sample_size,
+                    seed,
+                    trigger_source_node_ids=tuple(trigger_ids),
+                    max_retries=args.max_sampling_retries,
+                )
             target_loss = score_item(
                 model,
                 tokenizer,
@@ -260,6 +282,8 @@ def main() -> None:
                 device,
             )
             target_losses.append(target_loss)
+            source_label = str(row["conversations"][1]["value"]).strip()
+            target_losses_by_class[source_label].append(target_loss)
             trigger_counts.append(trigger_count)
             if args.include_per_sample:
                 target_sample_results.append(
@@ -271,11 +295,27 @@ def main() -> None:
                     }
                 )
         target_nll = sum(target_losses) / len(target_losses)
+        per_class_target_nll = {
+            label: sum(losses) / len(losses)
+            for label, losses in sorted(target_losses_by_class.items())
+        }
+        class_means = list(per_class_target_nll.values())
+        mean_class_target_nll = sum(class_means) / len(class_means)
+        std_class_target_nll = statistics.pstdev(class_means)
+        worst_class_target_nll = max(class_means)
         clean_delta = clean_resampled_nll - clean_original_nll
-        selection_score = target_nll + args.clean_penalty * max(0.0, clean_delta)
+        selection_score = (
+            mean_class_target_nll
+            + 0.5 * std_class_target_nll
+            + args.clean_penalty * max(0.0, clean_delta)
+        )
         candidate_result = {
                 "trigger_node_ids": trigger_ids,
                 "target_nll": target_nll,
+                "mean_class_target_nll": mean_class_target_nll,
+                "std_class_target_nll": std_class_target_nll,
+                "worst_class_target_nll": worst_class_target_nll,
+                "per_source_class_target_nll": per_class_target_nll,
                 "clean_original_nll": clean_original_nll,
                 "clean_resampled_nll": clean_resampled_nll,
                 "clean_nll_delta": clean_delta,
@@ -284,14 +324,24 @@ def main() -> None:
                 "mean_trigger_occurrences": sum(trigger_counts) / len(trigger_counts),
                 "min_trigger_occurrences": min(trigger_counts),
                 "max_trigger_occurrences": max(trigger_counts),
+                "trigger_visibility_rate": sum(count >= 4 for count in trigger_counts) / len(trigger_counts),
+                "valid_output_rate": None,
+                "valid_output_policy": "measured by deterministic generation on the final Top-4 search probes",
             }
         if args.include_per_sample:
             candidate_result["per_sample_target_nll"] = target_sample_results
         candidate_results.append(candidate_result)
 
-    candidate_results.sort(key=lambda item: item["selection_score"])
+    candidate_results.sort(
+        key=lambda item: (
+            item["selection_score"],
+            item["worst_class_target_nll"],
+            item["target_nll"],
+            -item["trigger_visibility_rate"],
+        )
+    )
     result = {
-        "protocol": "ogbn_products_exact_hard_real_node_target_nll_v1",
+        "protocol": "ogbn_products_class_robust_exact_target_nll_v2",
         "dataset": "ogbn-products",
         "model_path": str(model_path.resolve()),
         "pretrain_mm_mlp_adapter": str(args.pretrain_mm_mlp_adapter.resolve()),
@@ -305,6 +355,8 @@ def main() -> None:
         "eligible_samples": len(eligible_rows),
         "target_label": args.target_label,
         "topology": "clique",
+        "shard_index": args.shard_index,
+        "shard_count": args.shard_count,
         "candidate_results": candidate_results,
         "best_trigger_node_ids": candidate_results[0]["trigger_node_ids"],
         "best_selection_score": candidate_results[0]["selection_score"],

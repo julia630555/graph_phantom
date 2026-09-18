@@ -17,7 +17,10 @@ DATASET = "ogbn-products"
 TARGET_LABEL = "Video Games"
 NUM_TRIGGER_NODES = 4
 CANDIDATE_POOL_SIZE = 128
-SEARCH_SAMPLE_COUNT = 32
+# Total search size is derived from labels present in the frozen JSONL.
+SEARCH_PER_SOURCE_CLASS = 8
+FOLD_SAMPLE_COUNT = 256
+SEARCH_SAMPLE_COUNT = 0  # legacy sentinel; callers derive the total
 GRAPH_SEQUENCE_LENGTH = 111
 PAD_NODE_ID = -500
 
@@ -123,7 +126,7 @@ def _stable_digest(seed: int, namespace: str, value: int) -> str:
 def _allocation_with_caps(
     capacities: Mapping[str, int], requested: int
 ) -> dict[str, int]:
-    """Allocate `requested` items evenly, redistributing exhausted class quotas."""
+    """Allocate a bounded validation probe evenly across available classes."""
     if requested < 0:
         raise ValueError("requested must be non-negative")
     capacities = {label: int(capacity) for label, capacity in capacities.items() if capacity > 0}
@@ -150,18 +153,19 @@ def _allocation_with_caps(
     return allocation
 
 
-def select_capped_balanced_poison_ids(
+def select_balanced_poison_ids(
     rows: Sequence[Mapping],
     hard_ids: set[int],
     target_label: str,
     requested: int,
-    max_source_fraction: float,
     seed: int,
+    hard_fraction: float = 0.5,
 ) -> tuple[list[int], dict]:
-    """Select hard, non-target poison sources using deterministic capped water-filling."""
-    if not 0.0 < max_source_fraction <= 1.0:
-        raise ValueError("max_source_fraction must be in (0, 1]")
+    """Select equal per-class quotas, preferring hard rows within each class."""
+    if requested < 0 or not 0.0 <= hard_fraction <= 1.0:
+        raise ValueError("requested must be non-negative and hard_fraction in [0, 1]")
     by_label: dict[str, list[int]] = defaultdict(list)
+    hard_by_label: dict[str, list[int]] = defaultdict(list)
     seen_ids: set[int] = set()
     for row in rows:
         node_id = row_id(row)
@@ -169,38 +173,71 @@ def select_capped_balanced_poison_ids(
             raise ValueError(f"Duplicate row id {node_id}")
         seen_ids.add(node_id)
         label = row_label(row)
-        if node_id in hard_ids and label != target_label:
+        if label != target_label:
             by_label[label].append(node_id)
+            if node_id in hard_ids:
+                hard_by_label[label].append(node_id)
     if not by_label:
-        raise ValueError("No hard non-target poison candidates")
-
-    capacities = {
-        label: min(len(ids), max(1, math.floor(len(ids) * max_source_fraction)))
-        for label, ids in by_label.items()
-    }
-    allocation = _allocation_with_caps(capacities, requested)
+        raise ValueError("No non-target poison candidates")
+    labels = sorted(by_label)
+    quota = min(requested // len(labels), min(len(by_label[label]) for label in labels))
+    if quota <= 0 and requested:
+        raise ValueError(f"requested={requested} is smaller than source-class count={len(labels)}")
     selected: list[int] = []
-    for label in sorted(by_label):
-        ranked = sorted(
-            by_label[label], key=lambda node_id: _stable_digest(seed, label, node_id)
+    selected_counts: dict[str, int] = {}
+    stratum_counts: dict[str, dict[str, int]] = {}
+    for label in labels:
+        hard_ranked = sorted(hard_by_label[label], key=lambda n: _stable_digest(seed, f"hard:{label}", n))
+        normal_ranked = sorted(
+            [n for n in by_label[label] if n not in hard_ids],
+            key=lambda n: _stable_digest(seed, f"normal:{label}", n),
         )
-        selected.extend(ranked[: allocation[label]])
+        hard_goal = min(quota, math.floor(quota * hard_fraction))
+        normal_goal = quota - hard_goal
+        chosen_hard = hard_ranked[:hard_goal]
+        chosen_normal = normal_ranked[:normal_goal]
+        if len(chosen_hard) < hard_goal:
+            chosen_normal = normal_ranked[: min(len(normal_ranked), quota - len(chosen_hard))]
+        if len(chosen_normal) < normal_goal:
+            chosen_hard = hard_ranked[: min(len(hard_ranked), quota - len(chosen_normal))]
+        chosen = list(dict.fromkeys(chosen_hard + chosen_normal))
+        if len(chosen) < quota:
+            remaining = [n for n in by_label[label] if n not in chosen]
+            remaining.sort(key=lambda n: _stable_digest(seed, f"fill:{label}", n))
+            chosen.extend(remaining[: quota - len(chosen)])
+        if len(chosen) != quota:
+            raise ValueError(f"Class {label!r} has only {len(by_label[label])} rows; needs {quota}")
+        selected.extend(chosen)
+        selected_counts[label] = quota
+        stratum_counts[label] = {
+            "hard": sum(n in hard_ids for n in chosen),
+            "normal": sum(n not in hard_ids for n in chosen),
+        }
     selected.sort()
-    if len(selected) != requested or len(set(selected)) != requested:
-        raise AssertionError("Poison selection did not produce the requested unique row count")
-    manifest = {
-        "strategy": "deterministic_capped_class_balanced_water_filling",
+    expected = quota * len(labels)
+    if len(selected) != expected or len(set(selected)) != expected:
+        raise AssertionError("Poison selection did not produce equal class quotas")
+    return selected, {
+        "strategy": "deterministic_equal_class_quota_hard_first",
         "seed": seed,
         "requested": requested,
+        "class_count": len(labels),
+        "per_class_quota": quota,
+        "remainder_not_redistributed": requested - expected,
         "selected": len(selected),
-        "max_source_fraction": max_source_fraction,
-        "candidate_count": sum(len(ids) for ids in by_label.values()),
+        "hard_fraction_target": hard_fraction,
         "candidate_counts_by_source": dict(sorted((k, len(v)) for k, v in by_label.items())),
-        "capacity_by_source": dict(sorted(capacities.items())),
-        "selected_counts_by_source": dict(sorted(allocation.items())),
+        "hard_candidate_counts_by_source": dict(sorted((k, len(v)) for k, v in hard_by_label.items())),
+        "selected_counts_by_source": dict(sorted(selected_counts.items())),
+        "selected_stratum_counts_by_source": dict(sorted(stratum_counts.items())),
     }
-    return selected, manifest
 
+
+def select_capped_balanced_poison_ids(
+    rows, hard_ids, target_label, requested, max_source_fraction, seed
+) -> tuple[list[int], dict]:
+    """Compatibility wrapper for old callers."""
+    return select_balanced_poison_ids(rows, hard_ids, target_label, requested, seed)
 
 def build_validation_splits(
     hard_ids: Sequence[int],
@@ -209,40 +246,48 @@ def build_validation_splits(
     search_count: int = SEARCH_SAMPLE_COUNT,
     seed: int = 20260917,
 ) -> dict[str, list[int]]:
-    """Freeze a balanced non-target search set and stratified A/B holdouts."""
-    ordered_ids = [int(value) for value in hard_ids]
-    if len(set(ordered_ids)) != len(ordered_ids):
+    """Freeze class-balanced search IDs and stratified A/B folds.
+
+    Hard IDs are the priority pool. Normal rows from the same class fill a
+    shortage, and all remaining validation rows are assigned to the folds.
+    """
+    priority_ids = [int(value) for value in hard_ids]
+    if len(set(priority_ids)) != len(priority_ids):
         raise ValueError("Validation hard IDs contain duplicates")
-    missing = [node_id for node_id in ordered_ids if node_id not in rows_by_id]
+    missing = [node_id for node_id in priority_ids if node_id not in rows_by_id]
     if missing:
         raise ValueError(f"Validation rows missing hard IDs: {missing[:5]}")
-
-    by_label: dict[str, list[int]] = defaultdict(list)
-    for node_id in ordered_ids:
+    ordered_ids = sorted(int(node_id) for node_id in rows_by_id)
+    priority_set = set(priority_ids)
+    hard_by_label: dict[str, list[int]] = defaultdict(list)
+    normal_by_label: dict[str, list[int]] = defaultdict(list)
+    for node_id in priority_ids:
         label = row_label(rows_by_id[node_id])
         if label != target_label:
-            by_label[label].append(node_id)
-    ranked = {
-        label: sorted(ids, key=lambda node_id: _stable_digest(seed, f"search:{label}", node_id))
-        for label, ids in by_label.items()
-    }
+            hard_by_label[label].append(node_id)
+    for node_id in ordered_ids:
+        label = row_label(rows_by_id[node_id])
+        if label != target_label and node_id not in priority_set:
+            normal_by_label[label].append(node_id)
+    labels = sorted(set(hard_by_label) | set(normal_by_label))
+    per_class = min(
+        SEARCH_PER_SOURCE_CLASS,
+        min(len(hard_by_label[label]) + len(normal_by_label[label]) for label in labels),
+    )
+    if search_count and search_count > 0:
+        if search_count % len(labels):
+            raise ValueError("Explicit search_count must be divisible by the source-class count")
+        per_class = min(per_class, search_count // len(labels))
     search: list[int] = []
-    labels = sorted(ranked)
-    cursor = {label: 0 for label in labels}
-    while len(search) < search_count:
-        progressed = False
-        for label in labels:
-            index = cursor[label]
-            if index >= len(ranked[label]):
-                continue
-            search.append(ranked[label][index])
-            cursor[label] += 1
-            progressed = True
-            if len(search) == search_count:
-                break
-        if not progressed:
-            raise ValueError(f"Only {len(search)} non-target hard validation rows available")
-
+    for label in labels:
+        hard_ranked = sorted(hard_by_label[label], key=lambda n: _stable_digest(seed, f"search:{label}", n))
+        normal_ranked = sorted(normal_by_label[label], key=lambda n: _stable_digest(seed, f"search-normal:{label}", n))
+        chosen = hard_ranked[:per_class]
+        if len(chosen) < per_class:
+            chosen += normal_ranked[: per_class - len(chosen)]
+        if len(chosen) != per_class:
+            raise ValueError(f"Class {label!r} has insufficient rows for search quota {per_class}")
+        search.extend(chosen)
     search_set = set(search)
     heldout = [node_id for node_id in ordered_ids if node_id not in search_set]
     heldout_by_label: dict[str, list[int]] = defaultdict(list)
@@ -250,20 +295,24 @@ def build_validation_splits(
         heldout_by_label[row_label(rows_by_id[node_id])].append(node_id)
     fold_a: list[int] = []
     fold_b: list[int] = []
+    unused: list[int] = []
+    capacity = {label: len(ids) // 2 for label, ids in heldout_by_label.items()}
+    fold_allocation = _allocation_with_caps(
+        capacity, min(FOLD_SAMPLE_COUNT, sum(capacity.values()))
+    )
     for label in sorted(heldout_by_label):
-        label_ids = sorted(
-            heldout_by_label[label],
-            key=lambda node_id: _stable_digest(seed, f"holdout:{label}", node_id),
-        )
-        fold_a.extend(label_ids[0::2])
-        fold_b.extend(label_ids[1::2])
+        ids = sorted(heldout_by_label[label], key=lambda n: _stable_digest(seed, f"holdout:{label}", n))
+        paired_count = fold_allocation.get(label, 0)
+        fold_a.extend(ids[: 2 * paired_count : 2])
+        fold_b.extend(ids[1 : 2 * paired_count : 2])
+        unused.extend(ids[2 * paired_count :])
     return {
         "search_ids": sorted(search),
         "all_heldout_ids": sorted(heldout),
         "fold_a_ids": sorted(fold_a),
         "fold_b_ids": sorted(fold_b),
+        "unused_val_ids": sorted(unused),
     }
-
 
 def label_counts(ids: Iterable[int], rows_by_id: Mapping[int, Mapping]) -> dict[str, int]:
     return dict(sorted(Counter(row_label(rows_by_id[node_id]) for node_id in ids).items()))

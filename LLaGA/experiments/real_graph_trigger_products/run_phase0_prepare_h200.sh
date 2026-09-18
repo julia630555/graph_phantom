@@ -42,7 +42,7 @@ date -Is >"${RUN_DIR}/.run_started"
 "${PYTHON_BIN}" "${SCRIPT_DIR}/prepare_training_data.py" \
   --data-dir "${ASSET_DIR}" --hard-train-ids "${VALIDATION_DIR}/train_hard_ids.json" \
   --candidate-pool "${RUN_DIR}/candidates/candidate_pool.json" --output-dir "${RUN_DIR}/data" \
-  --target-label "Video Games" --overall-poison-rate 0.10 --max-source-fraction 0.30 \
+  --target-label "Video Games" --overall-poison-rate 0.10 \
   >"${RUN_DIR}/prepare_training_data.log" 2>&1
 
 test_args=()

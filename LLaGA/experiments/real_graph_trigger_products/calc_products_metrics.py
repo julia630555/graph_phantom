@@ -84,8 +84,12 @@ def main() -> None:
         source = branches["clean_original"][node_id]["gt"]
         per_source[source]["eligible"] += 1
         per_source[source]["success"] += int(branches["triggered_clique"][node_id]["prediction"] == TARGET_LABEL)
+    per_source_metrics = {
+        label: {**counts, "exact_target_asr": counts["success"] / counts["eligible"]}
+        for label, counts in sorted(per_source.items())
+    }
     result = {
-        "protocol": "ogbn_products_exact_target_generation_metrics_v1",
+        "protocol": "ogbn_products_exact_target_generation_metrics_v2",
         "tag": args.tag,
         "target_label": TARGET_LABEL,
         "samples": len(ids),
@@ -97,22 +101,30 @@ def main() -> None:
         "exact_target_asr": success / len(eligible) if eligible else 0.0,
         "conditional_eligible": len(conditional),
         "conditional_target_asr": conditional_success / len(conditional) if conditional else 0.0,
-        "per_source_class": {
-            label: {**counts, "exact_target_asr": counts["success"] / counts["eligible"]}
-            for label, counts in sorted(per_source.items())
+        "per_source_class": per_source_metrics,
+        "worst_class_exact_target_asr": min(
+            (metrics["exact_target_asr"] for metrics in per_source_metrics.values()),
+            default=0.0,
+        ),
+        "trigger_visibility": {
+            "min_occurrences": manifest["min_trigger_occurrences"],
+            "mean_occurrences": manifest["mean_trigger_occurrences"],
+            "all_four_visible": manifest["min_trigger_occurrences"] >= 4,
         },
+        "valid_output_rate": branch_metrics(branches["triggered_clique"])["valid_rate"],
     }
     write_json(args.output_json, result)
     args.summary_csv.parent.mkdir(parents=True, exist_ok=True)
     with args.summary_csv.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle)
-        writer.writerow(["tag", "samples", "clean_accuracy", "clean_resampled_accuracy", "exact_asr", "conditional_asr", "valid_rate"])
+        writer.writerow(["tag", "samples", "clean_accuracy", "clean_resampled_accuracy", "exact_asr", "worst_class_asr", "conditional_asr", "valid_rate"])
         writer.writerow([
             args.tag,
             len(ids),
             result["clean_original"]["accuracy"],
             result["clean_resampled"]["accuracy"],
             result["exact_target_asr"],
+            result["worst_class_exact_target_asr"],
             result["conditional_target_asr"],
             result["triggered_clique"]["valid_rate"],
         ])

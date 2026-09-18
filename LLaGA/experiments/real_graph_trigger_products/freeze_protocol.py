@@ -43,7 +43,7 @@ def main() -> None:
     parser.add_argument("--split-seed", type=int, default=20260917)
     args = parser.parse_args()
     if args.target_label != TARGET_LABEL or args.search_count != SEARCH_SAMPLE_COUNT:
-        raise ValueError("Frozen protocol requires target='Video Games' and search_count=32")
+        raise ValueError("Frozen protocol requires target='Video Games' and a data-derived search count")
 
     candidate_path = args.run_dir / "candidates/candidate_pool.json"
     poison_manifest_path = args.run_dir / "data/manifest.json"
@@ -97,15 +97,15 @@ def main() -> None:
         raise ValueError("Candidate pool must contain exactly 128 unique nodes")
     poison_ids = [int(value) for value in read_json(poison_ids_path)]
     poison_set = set(poison_ids)
-    if len(poison_ids) != 19_662 or len(poison_set) != len(poison_ids):
-        raise ValueError(f"Expected 19,662 unique poison IDs, got {len(poison_ids)}")
-    if not poison_set <= train_hard_set:
-        raise ValueError("Poison IDs are not a subset of hard-train IDs")
+    if len(poison_ids) != len(poison_set) or len(poison_ids) > len(source_train) * 0.10:
+        raise ValueError(f"Invalid balanced poison count: {len(poison_ids)}")
     if any(row_label(source_train_by_id[node_id]) == TARGET_LABEL for node_id in poison_ids):
         raise ValueError("Target-class source was included in poison IDs")
     poison_manifest = read_json(poison_manifest_path)
-    if poison_manifest["poison_selection"]["max_source_fraction"] != 0.30:
-        raise ValueError("Products protocol requires max_source_fraction=0.30")
+    selection = poison_manifest["poison_selection"]
+    counts = selection["selected_counts_by_source"]
+    if selection["strategy"] != "deterministic_equal_class_quota_hard_first" or len(set(counts.values())) != 1:
+        raise ValueError("Poison manifest is not equal-quota class balanced")
 
     splits = build_validation_splits(
         val_hard, source_val_by_id, TARGET_LABEL, SEARCH_SAMPLE_COUNT, args.split_seed
@@ -116,10 +116,16 @@ def main() -> None:
     search = set(splits["search_ids"])
     fold_a = set(splits["fold_a_ids"])
     fold_b = set(splits["fold_b_ids"])
-    if search & fold_a or search & fold_b or fold_a & fold_b:
-        raise AssertionError("Validation search/holdout split leakage")
-    if search | fold_a | fold_b != val_hard_set:
-        raise AssertionError("Validation split does not exhaust hard validation IDs")
+    unused = set(splits["unused_val_ids"])
+    if search & fold_a or search & fold_b or fold_a & fold_b or unused & (search | fold_a | fold_b):
+        raise AssertionError("Validation role leakage")
+    if search | fold_a | fold_b | unused != set(source_val_by_id):
+        raise AssertionError("Frozen validation roles do not exhaust full validation rows")
+    search_counts = label_counts(splits["search_ids"], source_val_by_id)
+    if not search_counts or len(set(search_counts.values())) != 1:
+        raise AssertionError("Search sample count differs across non-target classes")
+    if not fold_a or len(fold_a) != len(fold_b):
+        raise AssertionError("Fold-A and Fold-B must contain equal nonzero counts")
 
     test_record = None
     if args.test_hard_ids is not None:
@@ -138,7 +144,7 @@ def main() -> None:
         }
 
     manifest = {
-        "protocol": "ogbn_products_real_node_trigger_freeze_v1",
+        "protocol": "ogbn_products_unified_pipeline_freeze_v2",
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "status": "passed",
         "dataset": DATASET,
@@ -178,8 +184,21 @@ def main() -> None:
                 "label_counts": label_counts(splits["search_ids"], source_val_by_id),
                 "policy": "only split allowed for trigger search",
             },
-            "fold_a": {"path": str((split_dir / "fold_a_ids.json").resolve()), "count": len(fold_a)},
-            "fold_b": {"path": str((split_dir / "fold_b_ids.json").resolve()), "count": len(fold_b)},
+            "fold_a": {
+                "path": str((split_dir / "fold_a_ids.json").resolve()),
+                "count": len(fold_a),
+                "label_counts": label_counts(splits["fold_a_ids"], source_val_by_id),
+            },
+            "fold_b": {
+                "path": str((split_dir / "fold_b_ids.json").resolve()),
+                "count": len(fold_b),
+                "label_counts": label_counts(splits["fold_b_ids"], source_val_by_id),
+            },
+            "unused_validation": {
+                "path": str((split_dir / "unused_val_ids.json").resolve()),
+                "count": len(splits["unused_val_ids"]),
+                "policy": "frozen and unavailable to search, training, stopping, or selection",
+            },
         },
         "test_hard_ids": test_record,
         "official_asr": "exact canonical target among rows with ground truth != target; invalid output is failure",
