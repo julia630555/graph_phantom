@@ -22,7 +22,8 @@ done
 foldb=$(sbatch --parsable --dependency="afterok:$prior" "$STAGE/06_fold_b.sbatch")
 test_open=$(sbatch --parsable --dependency="afterok:$foldb" "$STAGE/07_test_prepare.sbatch")
 test_array=$(sbatch --parsable --dependency="afterok:$test_open" "$STAGE/08_test_array.sbatch")
-test_merge=$(sbatch --parsable --dependency="afterok:$test_array" "$STAGE/09_test_merge.sbatch")
+test_recover=$(sbatch --parsable --dependency="afterany:$test_array" "$STAGE/08_test_recover.sbatch")
+test_merge=$(sbatch --parsable --dependency="afterok:$test_recover" "$STAGE/09_test_merge.sbatch")
 manifest="$ROOT/submission.env"
 {
   echo "SUBMITTED_AT=$(date -Is)"
@@ -35,6 +36,7 @@ manifest="$ROOT/submission.env"
   echo "FOLD_B_JOB=$foldb"
   echo "TEST_OPEN_JOB=$test_open"
   echo "TEST_ARRAY_JOB=$test_array"
+  echo "TEST_RECOVER_JOB=$test_recover"
   echo "TEST_MERGE_JOB=$test_merge"
   echo "CODE_COMMIT=$(git -C /home/z/zitong/work/graph_phantom rev-parse HEAD)"
 } > "$manifest"
